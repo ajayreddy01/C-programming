@@ -3,28 +3,37 @@ int a_row, b_row, a_col, b_col, a[10][10], b[10][10], sum[10][10], sub[10][10], 
 
 float det_a, det_b;
 
-int m, n, i, j, row, col;
+int m, n, i, j, row, col; //used in looops
 
 int matrix_mul_check, matrix_ope_check, matrix_add;
 
+//check for possibility of mul
 int val_matrix_mul(int a_row, int b_row, int a_col, int b_col);
 
+//check for possibility of matrix operations
 int val_matrix_ope(int a_row, int b_row, int a_col, int b_col);
 
+//addition of matrix
 int add_matrix(int a[m][n], int b[m][n]);
 
+//subtraction of matrix
 int sub_matrix(int a[m][n], int b[m][n]);
 
+//multiplication of matrix
 int mul_matrix(int a[m][n], int b[m][n]);
 
+//transpose of a matrix
 int tran_matrix(int a[m][n]);
 
+//det of a matrix
 int det_matrix(int b[m][n]);
 
+//print matrix
 void display_matrix(int a[m][n], int row, int col);
 
-int val_matrix_mul(int a_row, int b_row, int a_col, int b_col)
-{
+
+//check for possibility of mul
+int val_matrix_mul(int a_row, int b_row, int a_col, int b_col){
     if (a_row == b_col)
     {
         return 1;
@@ -35,6 +44,7 @@ int val_matrix_mul(int a_row, int b_row, int a_col, int b_col)
     }
 }
 
+//check for possibility of matrix operations
 int val_matrix_ope(int a_row, int b_row, int a_col, int b_col){
     if (a_row == b_row && a_col == b_col){
         return 1;
@@ -43,7 +53,7 @@ int val_matrix_ope(int a_row, int b_row, int a_col, int b_col){
         return 0;
     }
 }
-
+//addtion of matrix
 int add_matrix(int a[m][n], int b[m][n]){
     for (i = 0; i < a_row; i++){
         for (j = 0; j < a_col; j++){
@@ -52,6 +62,7 @@ int add_matrix(int a[m][n], int b[m][n]){
     }
 }
 
+//subtraction of matrix
 int sub_matrix(int a[m][n], int b[m][n]){
 
     for (i = 0; i < a_row; i++){
@@ -61,6 +72,7 @@ int sub_matrix(int a[m][n], int b[m][n]){
     }
 }
 
+//multiplication of matrix
 int mul_matrix(int a[a_row][a_col], int b[b_row][b_col]){
     for (i = 0; i < a_row; i++){
         for (j = 0; j < a_col; j++){
@@ -69,6 +81,7 @@ int mul_matrix(int a[a_row][a_col], int b[b_row][b_col]){
     }
 }
 
+//transpose of matrix
 int tran_matrix(int a[m][n]){
     for (i = 0; i < a_row; i++){
         for (j = 0; j < a_col; j++){
@@ -76,10 +89,10 @@ int tran_matrix(int a[m][n]){
         }
     }
 }
-
+//det of matrix
 int det_matrix(int b[m][n]){
 }
-
+//to print matrix
 void display_matrix(int a[m][n], int row, int col){
 
     for (i = 0; i < row; i++){
