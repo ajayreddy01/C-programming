@@ -1,0 +1,67 @@
+ matrix_ope_check = val_matrix_ope(a_row,b_row,a_col,b_col);
+    if(matrix_ope_check == 0){
+        printf("Matrices doesn't support Operations :\n");
+    }else{
+        //add_matrix( a[a_row][a_col], b[b_row][b_col]);
+        printf("Addition Matrix  :\n");
+
+        for(i=0;i<a_row;i++){
+            for(j=0;j<a_col;j++){
+                sum[i][j] = a[i][j] + b[i][j];
+            }
+        }
+        for(i=0;i<a_row;i++){
+            for(j=0;j<a_col;j++){
+                printf("%d  ",sum[i][j]);
+            }
+        }
+
+        //sub_matrix( a[a_row][a_col], b[b_row][b_col]);
+        printf("\nsubtraction Matrix  :\n");
+        for(i=0;i<a_row;i++){
+            for(j=0;j<a_col;j++){
+                sub[i][j] = a[i][j] - b[i][j];
+            }
+        }
+        for(i=0;i<a_row;i++){
+            for(j=0;j<a_col;j++){
+                printf("%d  ",sub[i][j]);
+            }
+        }
+
+        printf("\nMul Matrix  :\n");
+        for(i=0;i<a_row;i++){
+            for(j=0;j<a_col;j++){
+                mul[i][j] = a[i][j] * b[j][i];
+            }
+        }
+        for(i=0;i<a_col;i++){
+            for(j=0;j<a_row;j++){
+                printf("%d  ",mul[i][j]);
+            }
+        }
+
+        printf("\nTranspose Mtrix one :\n");
+        for(i=0;i<a_row;i++){
+            for(j=0;j<a_col;j++){
+                tran_a[j][i] = a[i][j];
+            }
+        }
+        for(i=0;i<a_col;i++){
+            for(j=0;j<a_row;j++){
+                printf("%d  ",tran_a[i][j]);
+            }
+        }
+        printf("\nTranspose Mtrix two :\n");
+        for(i=0;i<a_row;i++){
+            for(j=0;j<a_col;j++){
+                tran_b[j][i] = b[i][j];
+            }
+        }
+        for(i=0;i<b_col;i++){
+            for(j=0;j<b_row;j++){
+                printf("%d  ",tran_b[i][j]);
+            }
+        }
+    }
+}
