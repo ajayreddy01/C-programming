@@ -6,30 +6,37 @@ int add(int x,int y){
     return sum;
 }
 
-int add_matrix(int row, int col,int a[row][col],int b[row][col]);
-int add_matrix(int row, int col,int a[row][col],int b[row][col]){
-    int sum[row][col];
+
+void  add_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col],int  sum[a_row][a_col]);
+void  add_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col],int  sum[a_row][a_col]){
     int m,n;
-    for (m = 0; m < row; m++){
-        for (n = 0; n < col; n++){
+    for (m = 0; m < a_row; m++){
+        for (n = 0; n < a_col; n++){
             sum[m][n] = a[m][n] +b[m][n];
         }
     }
-    return sum;
 }
 
-
-int sub_matrix(int row, int col,int a[row][col],int b[row][col]);
-int sub_matrix(int row, int col,int a[row][col],int b[row][col]){
-    int sub[row][col];
+void  sub_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col],int  sub[a_row][a_col]);
+void  sub_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col],int  sub[a_row][a_col]){
     int m,n;
-    for (m = 0; m < row; m++){
-        for (n = 0; n < col; n++){
-            sub[m][n] = a[m][n] -b[m][n];
+    for (m = 0; m < a_row; m++){
+        for (n = 0; n < a_col; n++){
+            sub[m][n] = a[m][n] - b[m][n];
         }
     }
-    return sub;
 }
+
+void  mul_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col],int  mul[a_row][a_col]);
+void  mul_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col],int  mul[a_row][a_col]){
+    int m,n;
+    for (m = 0; m < a_row; m++){
+        for (n = 0; n < a_col; n++){
+            mul[m][n] = a[n][m] *b[m][n];
+        }
+    }
+}
+
 
 
 void print_matrix(int row, int col,int arr[row][col]);
@@ -63,7 +70,12 @@ void main(){
         }
     }
 
-    print_matrix(a_row,a_col,sub_matrix(a_row,a_col,a,b));
-   
+    add_matrix(a_row,a_col, a[a_row][a_col], b[a_row][a_col],  sum[a_row][a_col]);
+    for (m = 0; m < b_row; m++){
+        for (n = 0; n < b_col; n++){
+            printf("%d", sum[m][n]);
+        }
+    }
+
     
 }
