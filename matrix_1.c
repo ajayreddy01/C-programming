@@ -49,14 +49,17 @@ int ** mul_matrix(int a_row, int a_col,int b_row, int b_col, int a[a_row][a_col]
     {
         mul[i] = malloc(sizeof(int*)*a_col);
     }
-    
+    int sum = 0;
    for (int i = 0; i < a_row; i++) {
         for (int j = 0; j < b_col; j++) {
            
             for (int k = 0; k < b_row; k++)
             {
-                mul[i][j] = a[i][k] * b[k][j];
+                sum += a[i][k] * b[k][j];
             }
+            mul[i][j] = sum;
+            sum = 0;
+
         }
     }
     return mul;
