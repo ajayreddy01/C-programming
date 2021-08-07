@@ -6,10 +6,10 @@ int ** add_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col])
 int ** add_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col]){
     int m,n;
     int **sum;
-    sum = calloc(sizeof(int*),a_row);
+    sum = malloc(sizeof(int*)*a_row);
     for (size_t i = 0; i < a_row; i++)
     {
-        sum[i] = calloc(sizeof(int*),a_col);
+        sum[i] = malloc(sizeof(int*)*a_col);
     }
     
     for (m = 0; m < a_row; m++){
@@ -25,10 +25,10 @@ int ** sub_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col])
 int ** sub_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col]){
     int m,n;
     int **sub;
-    sub = calloc(sizeof(int*),a_row);
+    sub = malloc(sizeof(int*)*a_row);
     for (size_t i = 0; i < a_row; i++)
     {
-        sub[i] = calloc(sizeof(int*),a_col);
+        sub[i] = malloc(sizeof(int*)*a_col);
     }
     
     for (m = 0; m < a_row; m++){
@@ -44,15 +44,19 @@ int ** mul_matrix(int a_row, int a_col, int b_row, int b_col, int a[a_row][a_col
 int ** mul_matrix(int a_row, int a_col,int b_row, int b_col, int a[a_row][a_col],int b[b_row][b_col]){
     int m,n;
     int **mul;
-    mul = calloc(sizeof(int*),b_row);
+    mul = malloc(sizeof(int*)*b_row);
     for (size_t i = 0; i < a_row; i++)
     {
-        mul[i] = calloc(sizeof(int*),a_col);
+        mul[i] = malloc(sizeof(int*)*a_col);
     }
     
-    for (m = 0; m < a_row; m++){
-        for (n = 0; n < a_col; n++){
-            mul[m][n] = a[m][n] * b[n][m];
+   for (int i = 0; i < a_row; i++) {
+        for (int j = 0; j < b_col; j++) {
+           
+            for (int k = 0; k < b_row; k++)
+            {
+                mul[i][j] = a[i][k] * b[k][j];
+            }
         }
     }
     return mul;
@@ -63,10 +67,10 @@ int ** tran_matrix( int row, int col,int a[row][col]);
 
 int ** tran_matrix( int row, int col,int a[row][col]){
     int **tran;
-    tran = calloc(sizeof(int*),col);
+    tran = malloc(sizeof(int*)*col);
     for (size_t i = 0; i < row; i++)
     {
-        tran[i] = calloc(sizeof(int*),row);
+        tran[i] = malloc(sizeof(int*)*row);
     }
     for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
@@ -91,15 +95,15 @@ int  det( int row, int col,int a[row][col]){
     }
 }
 
-int ** cofactor_matrix( int row, int col,int a[row][col]);
+int ** cofactor_matrix( int row, int col,int **a);
 
-int ** cofactor_matrix( int row, int col,int a[row][col]){
+int ** cofactor_matrix( int row, int col,int **a){
     int **cofactor;
     if( row == 3 && col == 3){
-        cofactor = calloc(sizeof(int*),row);
+        cofactor = malloc(sizeof(int*)*row);
         for (size_t i = 0; i < row; i++)
         {
-            cofactor[i] = calloc(sizeof(int*),col);
+            cofactor[i] = malloc(sizeof(int*)*col);
         }
         cofactor[0][0] =  1*(a[1][1]*a[2][2] - a[1][2]*a[2][1]);
         cofactor[0][1] =  -1*(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
@@ -115,13 +119,13 @@ int ** cofactor_matrix( int row, int col,int a[row][col]){
     
 }
 
-int ** scalar_division(int row, int col,int a[row][col],float scalar);
-int ** scalar_division(int row, int col,int a[row][col],float scalar){
+int ** scalar_division(int row, int col,int **a,float scalar);
+int ** scalar_division(int row, int col,int **a,float scalar){
     int **scalar_div_matrix;
-    scalar_div_matrix = calloc(sizeof(int*),row);
+    scalar_div_matrix = malloc(sizeof(int*)*row);
     for (size_t i = 0; i < row; i++)
     {
-        scalar_div_matrix[i] = calloc(sizeof(int*),row);
+        scalar_div_matrix[i] = malloc(sizeof(int*)*row);
     }
     for (size_t i = 0; i < row; i++)
     {
@@ -152,17 +156,21 @@ void main(){
     scanf("%d %d", &a_row,&a_col);
     printf("Enter The Size of matrix two : \n");
     scanf("%d %d", &b_row,&b_col);
-    int a[a_row][a_col],b[b_row][b_col],sub[a_row][a_col],mul[a_row][b_col];
-   
+    int a[a_row][a_col],b[b_row][b_col];
+    //int **a,**b;
+    //a = malloc((a_col*a_row)*sizeof(int*));
+    //b = malloc((b_col*b_row)*sizeof(int*));
     printf("ENTER THE ELEMENTS OF MATRIX One :\n");
     for (m = 0; m < a_row; m++){
         for (n = 0; n < a_col; n++){
+            printf("a[%d][%d] : ",m,n);
             scanf("%d", &a[m][n]);
         }
     }
     printf("ENTER THE ELEMENTS OF MATRIX Two :\n");
     for (m = 0; m < b_row; m++){
         for (n = 0; n < b_col; n++){
+            printf("b[%d][%d] : ",m,n);
             scanf("%d", &b[m][n]);
         }
     }
@@ -173,6 +181,8 @@ void main(){
         printf("Enter option:");
         scanf("%d",&opt);
         if(opt == 0){
+            free(a);
+            free(b);
             break;
         }
         else if(opt == 1){
