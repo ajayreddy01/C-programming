@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 
-int ** add_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col]);
-int ** add_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col]){
+int ** add_matrix(int a_row, int a_col, int **a,int **b);
+int ** add_matrix(int a_row, int a_col, int **a,int **b){
     int m,n;
     int **sum;
     sum = malloc(sizeof(int*)*a_row);
@@ -21,8 +21,8 @@ int ** add_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col])
 }
 
 
-int ** sub_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col]);
-int ** sub_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col]){
+int ** sub_matrix(int a_row, int a_col, int **a,int **b);
+int ** sub_matrix(int a_row, int a_col, int **a,int **b){
     int m,n;
     int **sub;
     sub = malloc(sizeof(int*)*a_row);
@@ -40,8 +40,8 @@ int ** sub_matrix(int a_row, int a_col, int a[a_row][a_col],int b[a_row][a_col])
 }
 
 
-int ** mul_matrix(int a_row, int a_col, int b_row, int b_col, int a[a_row][a_col],int b[b_row][b_col]);
-int ** mul_matrix(int a_row, int a_col,int b_row, int b_col, int a[a_row][a_col],int b[b_row][b_col]){
+int ** mul_matrix(int a_row, int a_col, int b_row, int b_col, int **a,int **b);
+int ** mul_matrix(int a_row, int a_col,int b_row, int b_col, int **a,int **b){
     int m,n;
     int **mul;
     mul = malloc(sizeof(int*)*b_row);
@@ -66,9 +66,9 @@ int ** mul_matrix(int a_row, int a_col,int b_row, int b_col, int a[a_row][a_col]
 }
 
 
-int ** tran_matrix( int row, int col,int a[row][col]);
+int ** tran_matrix( int row, int col,int **a);
 
-int ** tran_matrix( int row, int col,int a[row][col]){
+int ** tran_matrix( int row, int col,int **a){
     int **tran;
     tran = malloc(sizeof(int*)*col);
     for (size_t i = 0; i < row; i++)
@@ -84,9 +84,9 @@ int ** tran_matrix( int row, int col,int a[row][col]){
 }
 
 
-int  det( int row, int col,int a[row][col]);
+int  det( int row, int col,int **a);
 
-int  det( int row, int col,int a[row][col]){
+int  det( int row, int col,int **a){
     int det;
     if (row == 3){
         det = a[0][0]*((a[1][1]*a[2][2])-(a[1][2]*a[2][1])) - a[0][1]*((a[1][0]*a[2][2])-(a[1][2]*a[2][0])) +a[0][2]*((a[1][0]*a[2][1])-(a[1][1]*a[2][0]));
@@ -159,7 +159,7 @@ void main(){
     scanf("%d %d", &a_row,&a_col);
     printf("Enter The Size of matrix two : \n");
     scanf("%d %d", &b_row,&b_col);
-    int a[a_row][a_col],b[b_row][b_col];
+    int **a,**b;
     //int **a,**b;
     //a = malloc((a_col*a_row)*sizeof(int*));
     //b = malloc((b_col*b_row)*sizeof(int*));
