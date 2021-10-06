@@ -6,12 +6,13 @@ int ** add_matrix(int a_row, int a_col, int **a,int **b);
 int ** add_matrix(int a_row, int a_col, int **a,int **b){
     int m,n;
     int **sum;
-    sum = malloc(sizeof(int*)*a_row);
-    for (size_t i = 0; i < a_row; i++)
+    sum = calloc(a_row,sizeof(int*));
+    for (size_t i = 0; i < a_col; i++)
     {
-        sum[i] = malloc(sizeof(int*)*a_col);
+        /* code */
+        sum[i] = calloc(a_col,sizeof(int*));
     }
-    
+       
     for (m = 0; m < a_row; m++){
         for (n = 0; n < a_col; n++){
             sum[m][n] = a[m][n] +b[m][n];
@@ -25,10 +26,11 @@ int ** sub_matrix(int a_row, int a_col, int **a,int **b);
 int ** sub_matrix(int a_row, int a_col, int **a,int **b){
     int m,n;
     int **sub;
-    sub = malloc(sizeof(int*)*a_row);
-    for (size_t i = 0; i < a_row; i++)
+    sub = calloc(a_row,sizeof(int*));
+    for (size_t i = 0; i < a_col; i++)
     {
-        sub[i] = malloc(sizeof(int*)*a_col);
+        /* code */
+        sub[i] = calloc(a_col,sizeof(int*));
     }
     
     for (m = 0; m < a_row; m++){
@@ -40,26 +42,23 @@ int ** sub_matrix(int a_row, int a_col, int **a,int **b){
 }
 
 
-int ** mul_matrix(int a_row, int a_col, int b_row, int b_col, int **a,int **b);
-int ** mul_matrix(int a_row, int a_col,int b_row, int b_col, int **a,int **b){
+int ** mul_matrix(int a_row,  int b_col, int **a,int **b);
+int ** mul_matrix(int a_row,  int b_col, int **a,int **b){
     int m,n;
     int **mul;
-    mul = malloc(sizeof(int*)*b_row);
+    mul = malloc(sizeof(int*)*a_row);
     for (size_t i = 0; i < a_row; i++)
     {
-        mul[i] = malloc(sizeof(int*)*a_col);
+        mul[i] = malloc(sizeof(int*)*b_col);
     }
     int sum = 0;
    for (int i = 0; i < a_row; i++) {
         for (int j = 0; j < b_col; j++) {
-           
-            for (int k = 0; k < b_row; k++)
+            mul[i][j] = 0;
+            for (int k = 0; k < b_col; k++)
             {
-                sum += a[i][k] * b[k][j];
+                mul[i][j] += a[i][k] * b[k][j];
             }
-            mul[i][j] = sum;
-            sum = 0;
-
         }
     }
     return mul;
@@ -103,10 +102,10 @@ int ** cofactor_matrix( int row, int col,int **a);
 int ** cofactor_matrix( int row, int col,int **a){
     int **cofactor;
     if( row == 3 && col == 3){
-        cofactor = malloc(sizeof(int*)*row);
+        cofactor = calloc(row,sizeof(int*));
         for (size_t i = 0; i < row; i++)
         {
-            cofactor[i] = malloc(sizeof(int*)*col);
+            cofactor[i] = calloc(col,sizeof(int*));
         }
         cofactor[0][0] =  1*(a[1][1]*a[2][2] - a[1][2]*a[2][1]);
         cofactor[0][1] =  -1*(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
@@ -118,6 +117,9 @@ int ** cofactor_matrix( int row, int col,int **a){
         cofactor[2][1] =  -1*(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
         cofactor[2][2] =  1*(a[0][0]*a[1][1] - a[0][1]*a[1][0]);
         return cofactor;
+    }
+    else if( row ==2 && row == 2){
+        
     }
     
 }
@@ -160,14 +162,28 @@ void main(){
     printf("Enter The Size of matrix two : \n");
     scanf("%d %d", &b_row,&b_col);
     int **a,**b;
+    //int a_temp[a_row][a_col],b_temp[a_row][b_col];
     //int **a,**b;
-    //a = malloc((a_col*a_row)*sizeof(int*));
-    //b = malloc((b_col*b_row)*sizeof(int*));
+   
+    a = calloc(a_row,sizeof(int*));
+    for (size_t i = 0; i < a_col; i++)
+    {
+        /* code */
+        a[i] = calloc(a_col,sizeof(int*));
+    }
+    b = calloc(b_row,sizeof(int*));
+    for (size_t i = 0; i < a_col; i++)
+    {
+        /* code */
+        b[i] = calloc(b_col,sizeof(int*));
+    }
+    
     printf("ENTER THE ELEMENTS OF MATRIX One :\n");
     for (m = 0; m < a_row; m++){
         for (n = 0; n < a_col; n++){
             printf("a[%d][%d] : ",m,n);
             scanf("%d", &a[m][n]);
+            //a[m][n] = a_temp[m][n];
         }
     }
     printf("ENTER THE ELEMENTS OF MATRIX Two :\n");
@@ -175,6 +191,7 @@ void main(){
         for (n = 0; n < b_col; n++){
             printf("b[%d][%d] : ",m,n);
             scanf("%d", &b[m][n]);
+            //b[m][n] = b_temp[m][n];
         }
     }
     int opt;
@@ -206,7 +223,7 @@ void main(){
         }
         else if( opt == 3){
             printf("\nmul of matrix\n");
-            int **mul = mul_matrix(a_row,a_col,b_row,b_col,a,b);
+            int **mul = mul_matrix(a_row,b_col,a,b);
             print_matrix(a_row,a_col, mul);
             free(mul);
             printf("\n");
